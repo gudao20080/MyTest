@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.wk.customview.TouchViewActivity">
+
+    <com.wk.customview.view.TouchView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="#ccc"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingLeft="20dp"
+        >
+
+        <Button
+
+            android:id="@+id/btn_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button_1"/>
+
+    </com.wk.customview.view.TouchView>
+
+</LinearLayout>
