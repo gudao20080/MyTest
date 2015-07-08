@@ -3,12 +3,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
               android:id="@+id/ll_main"
+              android:orientation="vertical"
                 tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btn_popup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:text="PopupWindow_on_Bottom"/>
+
+
+    <Button
+        android:id="@+id/btn_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="a"/>
 
 </LinearLayout>

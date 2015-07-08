@@ -1,5 +1,6 @@
 package wangkai.mytest;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,27 +9,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.PopupWindow;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity {
-    private Button mPopupBtn;
-    private View contentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
 
-        mPopupBtn = (Button) findViewById(R.id.btn_popup);
-        mPopupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopup();
 
-            }
-        });
-        contentLayout = findViewById(R.id.ll_main);
+    }
+
+    @OnClick(R.id.btn_a)
+    public void go() {
+
+        startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 
     @Override
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @OnClick(R.id.btn_popup)
     public void showPopup() {
         View inflate = getLayoutInflater().inflate(R.layout.layout_pinche_select, null);
         int width = inflate.getWidth();
@@ -62,6 +63,6 @@ public class MainActivity extends AppCompatActivity {
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setOutsideTouchable(true);
 
-        popupWindow.showAtLocation(contentLayout, Gravity.BOTTOM, 0, 0);
+        popupWindow.showAtLocation(findViewById(android.R.id.content), Gravity.BOTTOM, 0, 0);
     }
 }
