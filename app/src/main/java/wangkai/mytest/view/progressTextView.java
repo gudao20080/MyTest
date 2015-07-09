@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import wangkai.mytest.R;
@@ -21,10 +22,11 @@ public class progressTextView extends TextView {
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
     private Drawable mExampleDrawable;
 
-    private TextPaint mTextPaint;
+    private TextPaint mTextPaint, mChangePaint;
     private float mTextWidth;
     private float mTextHeight;
-    private int mProgress;
+    private float mProgress = 0.5f;
+
 
     public progressTextView(Context context) {
         super(context);
@@ -70,12 +72,18 @@ public class progressTextView extends TextView {
         mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setTextAlign(Paint.Align.LEFT);
 
+        mChangePaint = new TextPaint();
+        mChangePaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        mChangePaint.setTextAlign(Paint.Align.LEFT);
+        mChangePaint.setColor(Color.RED);
+
         // Update TextPaint and text measurements from attributes
         invalidateTextPaintAndMeasurements();
     }
 
     private void invalidateTextPaintAndMeasurements() {
         mTextPaint.setTextSize(mExampleDimension);
+        mChangePaint.setTextSize(mExampleDimension);
         mTextPaint.setColor(mExampleColor);
         mTextWidth = mTextPaint.measureText(mExampleString);
 
@@ -83,6 +91,8 @@ public class progressTextView extends TextView {
         mTextHeight = fontMetrics.bottom;
     }
 
+
+    float mTextStartX, mTextStartY;
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -97,6 +107,7 @@ public class progressTextView extends TextView {
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
 
+
         // Draw the text.
         canvas.drawText(mExampleString,
             paddingLeft + (contentWidth - mTextWidth) / 2,
@@ -110,6 +121,20 @@ public class progressTextView extends TextView {
             mExampleDrawable.draw(canvas);
         }
 
+
+        mTextStartX = paddingLeft;
+        mTextStartY = paddingTop + mTextHeight;
+
+        float r = mProgress*mTextWidth + mTextStartX;
+        Paint.FontMetrics fontMetrics = mChangePaint.getFontMetrics();
+        float fontH = fontMetrics.descent - fontMetrics.ascent;
+//        float fontH =  - fontMetrics.ascent;
+        canvas.save();
+        canvas.clipRect(mTextStartX, paddingTop, r, paddingTop + fontH);
+        canvas.drawText(mExampleString, mTextStartX, paddingTop + fontH, mChangePaint);
+        canvas.restore();
+
+        RadioButton
     }
 
     public void setProgress(int progress) {
