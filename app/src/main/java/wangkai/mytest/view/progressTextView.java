@@ -134,7 +134,6 @@ public class progressTextView extends TextView {
         canvas.drawText(mExampleString, mTextStartX, paddingTop + fontH, mChangePaint);
         canvas.restore();
 
-        RadioButton
     }
 
     public void setProgress(int progress) {

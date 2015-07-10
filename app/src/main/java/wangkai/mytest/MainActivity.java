@@ -65,4 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
         popupWindow.showAtLocation(findViewById(android.R.id.content), Gravity.BOTTOM, 0, 0);
     }
+
+    @OnClick(R.id.btn_material_design)
+    public void goMaterialDesignActivity() {
+
+        startActivity(new Intent(MainActivity.this, MaterialDesignActivity.class));
+    }
+
 }
