@@ -2,7 +2,9 @@ package wangkai.mytest;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,13 @@ public class FabActivity extends AppCompatActivity {
         contentLayout = findViewById(R.id.main);
         ButterKnife.inject(this);
 
-//        CoordinatorLayout
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+
     }
 
     @OnClick(R.id.fab)
