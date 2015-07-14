@@ -27,7 +27,6 @@
         <activity
             android:name=".FabActivity"
             android:label="@string/title_activity_fab"
-            android:theme="@style/AppTheme"
             >
         </activity>
     </application>

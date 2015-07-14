@@ -2,7 +2,6 @@ package wangkai.mytest;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,14 +25,18 @@ public class FabActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+//        tabLayout.addTab(tabLayout.newTab().setText("标题1"));
+//        tabLayout.addTab(tabLayout.newTab().setText("标题2"));
+//        tabLayout.addTab(tabLayout.newTab().setText("标题3"));
+//        tabLayout.addTab(tabLayout.newTab().setText("标题4"));
 
-
+//        CollapsingToolbarLayout
     }
 
     @OnClick(R.id.fab)
     public void showSnackBar() {
-        Snackbar.make(findViewById(R.id.fab), "fab is onClick!", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.main), "fab is onClick!", Snackbar.LENGTH_SHORT).show();
 
 
     }
