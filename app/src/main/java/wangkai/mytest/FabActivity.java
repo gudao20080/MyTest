@@ -37,6 +37,7 @@ public class FabActivity extends AppCompatActivity {
 //        CollapsingToolbarLayout
     }
 
+
     @OnClick(R.id.fab)
     public void showSnackBar() {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.main), "fab is onClick!", Snackbar.LENGTH_SHORT);
@@ -53,9 +54,8 @@ public class FabActivity extends AppCompatActivity {
         textView2.setTextColor(Color.GREEN);
         Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
         drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
-        textView1.setCompoundDrawables(drawable,null, null,null);
-        snackbar.show();
-
+        textView1.setCompoundDrawables(drawable, null, null, null);
+        snackbar.show(); //AA
 
     }
 
