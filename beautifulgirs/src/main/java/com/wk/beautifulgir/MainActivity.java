@@ -1,4 +1,4 @@
-package com.administrator.beautifulgir;
+package com.wk.beautifulgir;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -73,15 +74,17 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_load)
     public void loadPics() {
-
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(15000);
         client.setResponseTimeout(15000);
         RequestParams params = new RequestParams("num", "20");
         client.addHeader("apikey", " 578bcd5a718e185b2ff73ebc4fce6e99");
+        final long start = System.currentTimeMillis();
         client.get("http://apis.baidu.com/txapi/mvtp/meinv", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                long end = System.currentTimeMillis();
+                Toast.makeText(MainActivity.this, "" + (end - start), Toast.LENGTH_SHORT).show();
                 Gson gson = new Gson();
                 for (int i = 0; i < response.length(); i++) {
                     boolean has = response.has(String.valueOf(i));

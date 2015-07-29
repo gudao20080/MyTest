@@ -1,4 +1,4 @@
-package com.administrator.beautifulgir;
+package com.wk.beautifulgir;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

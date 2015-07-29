@@ -1,4 +1,4 @@
-package com.administrator.beautifulgir;
+package com.wk.beautifulgir;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

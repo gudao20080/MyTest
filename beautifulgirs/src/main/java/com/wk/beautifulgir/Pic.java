@@ -1,4 +1,4 @@
-package com.administrator.beautifulgir;
+package com.wk.beautifulgir;
 
 /**
  * User: WangKai(123940232@qq.com)
