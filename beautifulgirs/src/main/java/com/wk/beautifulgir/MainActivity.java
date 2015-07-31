@@ -2,10 +2,13 @@ package com.wk.beautifulgir;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,12 +31,13 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+    private String TAG = getClass().getSimpleName();
     @InjectView(R.id.btn_load)
     Button btnLoad;
     @InjectView(R.id.iv_image)
     ImageView ivImage;
-    private String TAG = getClass().getSimpleName();
     List<Pic> pics = new ArrayList<>();
+    private String mString;
 
 
     @InjectView(R.id.RecyclerView)
@@ -59,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
+        HandlerThread handlerThread = new HandlerThread("handThread");
+        Looper looper = handlerThread.getLooper();
+        Handler handler = new Handler(looper, new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+
+                return false;
+            }
+        });
+        Log.d(TAG, "onCreate() called with " + "savedInstanceState = [" + savedInstanceState + "]");
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
