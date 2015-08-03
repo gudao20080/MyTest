@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
+//        RecyclerView.ItemDecoration itemDecoration = new RecyclerView.ItemDecoration();
         HandlerThread handlerThread = new HandlerThread("handThread");
         Looper looper = handlerThread.getLooper();
         Handler handler = new Handler(looper, new Handler.Callback() {
