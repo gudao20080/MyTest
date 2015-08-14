@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 public class DragableViewGroup extends LinearLayout {
     private final String TAG = getClass().getSimpleName();
     private ViewDragHelper mDragHelper;
-    private View commonView, releaseView;
+    private View commonView, releaseView, edgeView;
     private Point releasePoint = new Point(0, 0);
 
     public DragableViewGroup(Context context) {
@@ -50,6 +50,7 @@ public class DragableViewGroup extends LinearLayout {
             @Override
             public void onViewCaptured(View capturedChild, int activePointerId) {
                 super.onViewCaptured(capturedChild, activePointerId);
+                Log.d(TAG, "onViewCaptured ");
             }
 
             @Override
@@ -74,7 +75,10 @@ public class DragableViewGroup extends LinearLayout {
 
             @Override
             public void onEdgeDragStarted(int edgeFlags, int pointerId) {
-                super.onEdgeDragStarted(edgeFlags, pointerId);
+//                super.onEdgeDragStarted(edgeFlags, pointerId);
+
+                mDragHelper.captureChildView(edgeView, pointerId);
+
             }
 
             @Override
@@ -84,14 +88,16 @@ public class DragableViewGroup extends LinearLayout {
 
             @Override
             public int getViewHorizontalDragRange(View child) {
-                int viewHorizontalDragRange = super.getViewHorizontalDragRange(child);
-                Log.d(TAG, "getViewHorizontalDragRange " + viewHorizontalDragRange);
-                return 20;
+
+                int range = getMeasuredWidth() - child.getMeasuredWidth()- getPaddingLeft() - getPaddingRight();
+                return range;
+
             }
 
             @Override
             public int getViewVerticalDragRange(View child) {
-                return super.getViewVerticalDragRange(child);
+                int range = getMeasuredHeight()- child.getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+                return range;
             }
 
 
@@ -116,6 +122,8 @@ public class DragableViewGroup extends LinearLayout {
                 return top;
             }
         });
+
+        mDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
     }
 
     public DragableViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -128,6 +136,7 @@ public class DragableViewGroup extends LinearLayout {
         super.onLayout(changed, l, t, r, b);
         releasePoint.x = releaseView.getLeft();
         releasePoint.y = releaseView.getTop();
+        Log.d(TAG, "onLayout ");
     }
 
     @Override
@@ -150,5 +159,22 @@ public class DragableViewGroup extends LinearLayout {
         super.onFinishInflate();
         commonView = getChildAt(0);
         releaseView = getChildAt(1);
+        edgeView = getChildAt(2);
+        Log.d(TAG, "onFinishInflate ");
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+
+        if (mDragHelper.continueSettling(true)) {
+
+            invalidate();
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

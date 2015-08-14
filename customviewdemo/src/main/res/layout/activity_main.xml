@@ -19,6 +19,7 @@
             android:background="@android:color/holo_red_dark"
             android:padding="10dp"
             android:singleLine="true"
+            android:clickable="true"
             android:text="普通移动"
             android:textSize="20sp"
             />
