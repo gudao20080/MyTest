@@ -11,18 +11,19 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Picasso;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,38 +41,39 @@ public class MainActivity extends AppCompatActivity {
     private String mString;
 
 
+
     @InjectView(R.id.RecyclerView)
     RecyclerView recyclerView;
-    private Handler handler = new Handler(new Handler.Callback() {
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            if (msg.what == 1)
-                recyclerView.setAdapter(new MyRecyclerAdapter(MainActivity.this, pics));
+            recyclerView.setAdapter(new MyRecyclerAdapter(MainActivity.this, pics));
 
             return false;
         }
-
     });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-        Picasso.with(this).load("http://img0.bdstatic.com/img/image/shouye/bizhi0525.jpg").into(ivImage);
+        Fresco.initialize(this);
+//        Picasso.with(this).load("http://img0.bdstatic.com/img/image/shouye/bizhi0525.jpg").into(ivImage);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 //        RecyclerView.ItemDecoration itemDecoration = new RecyclerView.ItemDecoration();
         HandlerThread handlerThread = new HandlerThread("handThread");
         Looper looper = handlerThread.getLooper();
-        Handler handler = new Handler(looper, new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message msg) {
-
-                return false;
-            }
-        });
+//        Handler handler = new Handler(looper, new Handler.Callback() {
+//            @Override
+//            public boolean handleMessage(Message msg) {
+//
+//                return false;
+//            }
+//        });
         Log.d(TAG, "onCreate() called with " + "savedInstanceState = [" + savedInstanceState + "]");
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -87,36 +89,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_load)
-    public void loadPics() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(15000);
-        client.setResponseTimeout(15000);
-        RequestParams params = new RequestParams("num", "20");
-        client.addHeader("apikey", " 578bcd5a718e185b2ff73ebc4fce6e99");
-        final long start = System.currentTimeMillis();
-        client.get("http://apis.baidu.com/txapi/mvtp/meinv", params, new JsonHttpResponseHandler() {
+    public void loadWithOkHttp() {
+
+        String url = "http://apis.baidu.com/txapi/mvtp/meinv?num=20";
+
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().addHeader("apikey", "578bcd5a718e185b2ff73ebc4fce6e99")
+            .url(url).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                long end = System.currentTimeMillis();
-                Toast.makeText(MainActivity.this, "" + (end - start), Toast.LENGTH_SHORT).show();
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                String content = response.body().string();
+                InputStream inputStream = response.body().byteStream();
+
                 Gson gson = new Gson();
-                for (int i = 0; i < response.length(); i++) {
-                    boolean has = response.has(String.valueOf(i));
-                    if (has) {
-                        String value = null;
-                        try {
-                            value = response.getString(String.valueOf(i));
-                            Pic pic = gson.fromJson(value, Pic.class);
+                pics = new ArrayList<>();
+                try {
+                    JSONObject jsonObject = new JSONObject(content);
+                    for (int i = 0; i < jsonObject.length(); i++) {
+                        if (jsonObject.has(String.valueOf(i))) {
+
+                            JSONObject jsonDetail = jsonObject.getJSONObject(String.valueOf(i));
+                            String s = jsonObject.optString(String.valueOf(i), "");
+                            Pic pic = gson.fromJson(s, Pic.class);
                             pics.add(pic);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
                     }
+                    mHandler.sendEmptyMessage(0);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                handler.sendEmptyMessage(1);
+
 
             }
         });
+
     }
 
 

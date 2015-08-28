@@ -1,1 +1,1 @@
-include ':app', ':beautifulgirs', ':customviewdemo'
+include ':app', ':beautifulgirs', ':customviewdemo', ':meterialdesigndemo'
