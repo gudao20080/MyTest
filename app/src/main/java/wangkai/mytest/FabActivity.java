@@ -22,7 +22,6 @@ public class FabActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
 //        CoordinatorLayout
-        AppBarLayout
     }
 
     @OnClick(R.id.fab)
