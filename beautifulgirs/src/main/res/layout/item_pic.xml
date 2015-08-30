@@ -14,9 +14,9 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/simpleDraweeView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        fresco:placeholderImage="@mipmap/ic_launcher"
-
+        android:layout_height="400dp"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:pressedStateOverlayImage="@drawable/loading"
         />
 
 
