@@ -1,12 +1,16 @@
 package wangkai.mytest;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,13 +25,38 @@ public class FabActivity extends AppCompatActivity {
         contentLayout = findViewById(R.id.main);
         ButterKnife.inject(this);
 
-//        CoordinatorLayout
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+//        tabLayout.addTab(tabLayout.newTab().setText("标题1"));
+//        tabLayout.addTab(tabLayout.newTab().setText("标题2"));
+//        tabLayout.addTab(tabLayout.newTab().setText("标题3"));
+//        tabLayout.addTab(tabLayout.newTab().setText("标题4"));
+
+//        CollapsingToolbarLayout
     }
+
 
     @OnClick(R.id.fab)
     public void showSnackBar() {
-        Snackbar.make(findViewById(R.id.fab), "fab is onClick!", Snackbar.LENGTH_SHORT).show();
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.main), "fab is onClick!", Snackbar.LENGTH_SHORT);
+        snackbar.setAction("action", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+        View view = snackbar.getView();
+        TextView textView1 = (TextView) view.findViewById(R.id.snackbar_text);
+        TextView textView2 = (TextView) view.findViewById(R.id.snackbar_action);
+        textView1.setTextColor(Color.RED);
+        textView2.setTextColor(Color.GREEN);
+        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+        drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
+        textView1.setCompoundDrawables(drawable, null, null, null);
+        snackbar.show(); //AA
 
     }
 

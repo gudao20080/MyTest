@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--顺风车颜色-->
+    <color name="sfc_yellow">#fcbb01</color>
+    <color name="sfc_titile_bg">#f8f8f8</color>
+    <color name="sfc_main_bg">#f8f8f8</color>
+</resources>

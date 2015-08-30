@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+              android:orientation="vertical"
+                tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/progressActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="progressActivity"
+        android:textAllCaps="false"
+        />
+
+
+    <com.wk.customviewdemo.view.DragableViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_dark"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:clickable="true"
+            android:text="普通移动"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light"
+            android:padding="10dp"
+            android:text="释放回到原位"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_light"
+            android:padding="10dp"
+            android:text="@string/hello_world"
+            android:textSize="20sp"
+            />
+
+
+        <!--<TextView
+            android:id="@+id/tv2"
+            android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:background="@android:color/holo_red_dark"
+            />-->
+    </com.wk.customviewdemo.view.DragableViewGroup>
+
+
+</LinearLayout>

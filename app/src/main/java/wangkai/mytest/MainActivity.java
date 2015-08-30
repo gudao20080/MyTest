@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 
+    @OnClick(R.id.btn_okhttp)
+    public void goOkHttp() {
+
+        startActivity(new Intent(MainActivity.this, OkHttpActivity.class));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
