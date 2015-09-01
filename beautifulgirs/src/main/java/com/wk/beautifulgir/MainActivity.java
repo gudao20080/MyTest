@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
                             JSONObject jsonDetail = jsonObject.getJSONObject(String.valueOf(i));
                             String s = jsonObject.optString(String.valueOf(i), "");
+
                             Pic pic = gson.fromJson(s, Pic.class);
                             pics.add(pic);
                         }
@@ -147,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void loadWithPost() {
